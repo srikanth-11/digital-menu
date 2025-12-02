@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file.
 
 generator client {
     provider = "prisma-client-js"
@@ -11,11 +10,65 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model User {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  fullName    String
+  country     String
+  createdAt   DateTime     @default(now())
 
-    @@index([name])
+  restaurants Restaurant[]
+  otps        OTP[]
+}
+
+model Restaurant {
+  id         String     @id @default(cuid())
+  name       String
+  slug       String     @unique
+  location   String?
+  public     Boolean    @default(true)
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     String?
+  categories Category[]
+  dishes     Dish[]
+  createdAt  DateTime   @default(now())
+}
+
+model Category {
+  id           String         @id @default(cuid())
+  name         String
+  position     Int            @default(0)
+  restaurant   Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  dishes       DishCategory[]
+}
+
+model Dish {
+  id           String         @id @default(cuid())
+  name         String
+  description  String?
+  imageUrl     String?
+  spiceLevel   Int?
+  isVeg        Boolean        @default(true)
+  restaurant   Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  categories   DishCategory[]
+}
+
+model DishCategory {
+  dishId     String
+  categoryId String
+
+  dish       Dish     @relation(fields: [dishId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([dishId, categoryId])
+}
+
+model OTP {
+  id        String   @id @default(cuid())
+  code      String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
