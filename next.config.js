@@ -7,7 +7,7 @@ import "./src/env.js";
 /** @type {import("next").NextConfig} */
 const config = {  
  images: {
-    domains: ["api.qrserver.com"], // 👈 allow QR code images
+    domains: ["api.qrserver.com", "7bhqajopy9.ufs.sh"], // 👈 allow QR code images
   },
 
 
