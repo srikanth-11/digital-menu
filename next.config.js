@@ -5,6 +5,13 @@
 import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {  
+ images: {
+    domains: ["api.qrserver.com"], // 👈 allow QR code images
+  },
+
+
+
+};
 
 export default config;
