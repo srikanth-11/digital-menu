@@ -86,10 +86,8 @@ verifyOtp: publicProcedure
     });
 
     if (!otp) return { error: "Invalid or expired OTP" };
-    console.log("OTP verified successfully for user:", user.email, user, generateJWT(user.id) );
 
     const token = generateJWT(user.id);
-    console.log("Generated JWT:", token);
 
     // ⭐ Create response only to set cookies
     const res = NextResponse.next();

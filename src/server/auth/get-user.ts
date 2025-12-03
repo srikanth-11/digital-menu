@@ -4,7 +4,6 @@ import { db } from "../db";
 
 export async function getUser() {
   const cookieStore = await cookies();
-  console.log("Cookies:", cookieStore.getAll());
   const token = cookieStore.get("session")?.value;
 
   if (!token) return null;

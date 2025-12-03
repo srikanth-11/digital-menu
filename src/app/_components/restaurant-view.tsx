@@ -209,7 +209,7 @@ export default function RestaurantView({ restaurant, canEdit }: Props) {
 
                   {/* RIGHT IMAGE */}
                   {dish.imageUrl && (
-                    <div className="overflow-hidden rounded-xl shrink-0">
+                    <div className="w-24 h-24 overflow-hidden rounded-xl shrink-0">
                       <Image
                         src={dish.imageUrl}
                         alt={dish.name}
